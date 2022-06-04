@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taspro/utils/sizes.dart';
-import 'package:taspro/widgets/big_text.dart';
+import 'package:taspro/widgets/text/big_text.dart';
+import 'package:taspro/widgets/text/normal_text.dart';
+import 'package:taspro/widgets/text/small_text.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,13 +20,25 @@ class _LoginScreenState extends State<LoginScreen> {
           return ListView(
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const <Widget>[
-                  Icon(Icons.arrow_back_ios),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(Sizes.intense.screenHorizontal(context) * 3),
+                    child: const Icon(Icons.arrow_back_ios),
+                  ),
                 ],
               ),
-              SizedBox(height: Sizes.intense.screenVertical(context) * 2,),
-              const BigText(text: "Login",),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(height: Sizes.intense.screenVertical(context) * 10,),
+                  const BigText(text: "TASPRO",),
+                  SizedBox(height: Sizes.intense.screenVertical(context) * 5,),
+                  const SmallText(text: "Task Progress"),
+                  SizedBox(height: Sizes.intense.screenVertical(context) * 20,),
+                  const NormalText(text: "MASUK"),
+                ],
+              ),
             ],
           );
         },
