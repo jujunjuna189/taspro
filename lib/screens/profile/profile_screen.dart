@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
-import 'package:taspro/widgets/text/medium_text.dart';
 import 'package:taspro/widgets/text/normal_text.dart';
 import 'package:taspro/widgets/text/small_text.dart';
 

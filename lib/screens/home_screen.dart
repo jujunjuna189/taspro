@@ -85,10 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(
-                          Icons.person_outline,
+                          Icons.folder_open,
                           color: currenTab == 1 ? textPrimaryColor : textBlackColor,
                         ),
-                        Text("Profile", style: TextStyle(color: currenTab == 1 ? textPrimaryColor : textBlackColor),),
+                        Text("Workspace", style: TextStyle(color: currenTab == 1 ? textPrimaryColor : textBlackColor),),
                       ],
                     ),
                   )

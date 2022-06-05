@@ -3,6 +3,8 @@ import 'package:taspro/screens/auth/auth_screen.dart';
 import 'package:taspro/screens/auth/login_screen.dart';
 import 'package:taspro/screens/auth/register_screen.dart';
 import 'package:taspro/screens/home_screen.dart';
+import 'package:taspro/screens/intro/intro_screen.dart';
+import 'package:taspro/screens/splash/splash_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -11,6 +13,10 @@ class RouteGenerator {
 
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => const IntroScreen());
+      case '/splash':
+        return MaterialPageRoute(builder: (_) => const SplashScreen());
+      case '/auth':
         return MaterialPageRoute(builder: (_) => const AuthScreen());
       case '/login':
         return MaterialPageRoute(builder: (_) => const LoginScreen());
