@@ -14,7 +14,7 @@ class MediumText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: Sizes.intense.screenHorizontal(context) * 4.5,
+        fontSize: Sizes.intense.screenHorizontal(context) * 6,
         fontWeight: FontWeight.w700,
       ),
     );

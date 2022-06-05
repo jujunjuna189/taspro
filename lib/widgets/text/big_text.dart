@@ -14,7 +14,7 @@ class BigText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: Sizes.intense.screenHorizontal(context) * 6,
+        fontSize: Sizes.intense.screenHorizontal(context) * 15,
         fontWeight: FontWeight.bold,
       ),
     );

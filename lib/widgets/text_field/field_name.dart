@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 
-class FieldEmail extends StatelessWidget {
-  const FieldEmail({Key? key}) : super(key: key);
+class FieldName extends StatelessWidget {
+  const FieldName({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,12 @@ class FieldEmail extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.text,
         style: TextStyle(fontSize: Sizes.intense.screenHorizontal(context) * 4.5, fontWeight: FontWeight.bold),
         decoration: InputDecoration(
-          hintText: "Email",
+          hintText: "Nama Lengkap",
           hintStyle: TextStyle(fontSize: Sizes.intense.screenHorizontal(context) * 4.5, fontWeight: FontWeight.bold),
-          prefixIcon: Icon(Icons.email_outlined, size: Sizes.intense.screenHorizontal(context) * 6.5, color: textBlackColor,),
+          prefixIcon: Icon(Icons.person_outline, size: Sizes.intense.screenHorizontal(context) * 6.5, color: textBlackColor,),
           border: InputBorder.none,
         ),
       ),

@@ -4,9 +4,13 @@ import 'package:taspro/utils/sizes.dart';
 class NormalText extends StatelessWidget {
   final String text;
   final double? size;
+  final Color? color;
+  final FontWeight? fontWeight;
   const NormalText({Key? key,
     required this.text,
     this.size,
+    this.color,
+    this.fontWeight
   }) : super(key: key);
 
   @override
@@ -14,8 +18,9 @@ class NormalText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: Sizes.intense.screenHorizontal(context) * 3.5,
-        fontWeight: FontWeight.normal,
+        color: color,
+        fontSize: Sizes.intense.screenHorizontal(context) * 5,
+        fontWeight: fontWeight ?? FontWeight.normal,
       ),
     );
   }

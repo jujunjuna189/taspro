@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taspro/screens/auth/login_screen.dart';
-import 'package:taspro/screens/home_page.dart';
+import 'package:taspro/routes/route_generator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +15,11 @@ class MyApp extends StatelessWidget {
       title: 'Taspro',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
