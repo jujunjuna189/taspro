@@ -42,7 +42,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     onTap: ((){
                       _dotController.jumpToPage(2);
                     }),
-                    child: const SmallText(text: "Skip"),
+                    child: const SmallText(text: "Lewati"),
                   ),
                   SmoothPageIndicator(controller: _dotController, count: 3, effect: const SlideEffect(dotWidth: 10, dotHeight: 10),),
                   !onLastPage ? GestureDetector(
@@ -52,7 +52,7 @@ class _IntroScreenState extends State<IntroScreen> {
                           curve: Curves.easeIn,
                         );
                       }),
-                      child: const SmallText(text: "Next"),
+                      child: const SmallText(text: "Selanjutnya"),
                     )
                   : GestureDetector(
                     onTap: ((){

@@ -55,8 +55,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              MediumText(text: "Project"),
-              SmallText(text: "View All"),
+              MediumText(text: "Baru Saja"),
+              SmallText(text: "Lainnya"),
             ],
           ),
           SizedBox(height: Sizes.intense.screenVertical(context) * 3,),
@@ -77,8 +77,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              MediumText(text: "Task"),
-              SmallText(text: "View All"),
+              MediumText(text: "Tugas"),
+              SmallText(text: "Lainnya"),
             ],
           ),
           ListView(
