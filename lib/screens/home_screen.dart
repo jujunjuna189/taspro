@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:taspro/screens/dashboard/dashboard_screen.dart';
 import 'package:taspro/screens/profile/profile_screen.dart';
+import 'package:taspro/screens/setting/setting_screen.dart';
+import 'package:taspro/screens/workspace/workspace_screen.dart';
 import 'package:taspro/utils/colors.dart';
+import 'package:taspro/widgets/modal/modal_add_floating.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int currenTab = 0;
   final List<Widget> screen = [
     const DashboardScreen(),
+    const WorkspaceScreen(),
+    const SettingScreen(),
     const ProfileScreen(),
   ];
 
@@ -28,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
         child: currentScreen,
       ),
       floatingActionButton: FloatingActionButton.small(
-        onPressed: ((){}),
+        onPressed: ((){
+          ModalAddFloating.intense.modalShow(context);
+        }),
         backgroundColor: backgroundBlackColor,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
         child: const Icon(Icons.add),
@@ -77,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     minWidth: 40,
                     onPressed: ((){
                       setState((){
-                        currentScreen = const ProfileScreen();
+                        currentScreen = const WorkspaceScreen();
                         currenTab = 1;
                       });
                     }),
@@ -101,18 +108,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     minWidth: 40,
                     onPressed: ((){
                       setState((){
-                        currentScreen = const DashboardScreen();
-                        currenTab = 0;
+                        currentScreen = const SettingScreen();
+                        currenTab = 2;
                       });
                     }),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(
-                          Icons.dashboard,
-                          color: currenTab == 0 ? textPrimaryColor : textBlackColor,
+                          Icons.settings,
+                          color: currenTab == 2 ? textPrimaryColor : textBlackColor,
                         ),
-                        Text("Home", style: TextStyle(color: currenTab == 0 ? textPrimaryColor : textBlackColor),),
+                        Text("Setting", style: TextStyle(color: currenTab == 2 ? textPrimaryColor : textBlackColor),),
                       ],
                     ),
                   ),
@@ -121,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: ((){
                       setState((){
                         currentScreen = const ProfileScreen();
-                        currenTab = 1;
+                        currenTab = 3;
                       });
                     }),
                     child: Column(
@@ -129,9 +136,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: <Widget>[
                         Icon(
                           Icons.person_outline,
-                          color: currenTab == 1 ? textPrimaryColor : textBlackColor,
+                          color: currenTab == 3 ? textPrimaryColor : textBlackColor,
                         ),
-                        Text("Profile", style: TextStyle(color: currenTab == 1 ? textPrimaryColor : textBlackColor),),
+                        Text("Profile", style: TextStyle(color: currenTab == 3 ? textPrimaryColor : textBlackColor),),
                       ],
                     ),
                   )

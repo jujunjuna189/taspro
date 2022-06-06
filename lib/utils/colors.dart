@@ -11,6 +11,7 @@ const backgroundDangerColor = Color(0xFFFFE5E5);
 const backgroundLightDangerColor = Color(0xFFF5E3E3);
 const backgroundSecondaryColor = Color(0xFFF5F5F5);
 const backgroundBlackColor = Color(0xFF0E0E0E);
+const backgroundLightGreyColor = Color(0xFFE7E7E7);
 
 //text colors
 const textPrimaryColor = Color(0xFF4083BD);
