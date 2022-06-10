@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taspro/utils/sizes.dart';
+import 'package:taspro/widgets/sleek/sleek_progress.dart';
 
 class ProjectScreen extends StatefulWidget {
   const ProjectScreen({Key? key}) : super(key: key);
@@ -20,8 +21,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
             bottom: Sizes.intense.screenHorizontal(context) * 10
         ),
         physics: const ScrollPhysics(),
-        children: [
-          Container(),
+        children: const [
+          SleekProgress(),
         ],
       ),
     );
