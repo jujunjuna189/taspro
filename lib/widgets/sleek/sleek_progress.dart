@@ -25,9 +25,6 @@ class _SleekProgressState extends State<SleekProgress> {
         angleRange: 100,
       ),
       initialValue: 50,
-      onChange: ((double value){
-        print(value);
-      }),
     );
   }
 }
