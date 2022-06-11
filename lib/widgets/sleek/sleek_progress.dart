@@ -22,6 +22,7 @@ class _SleekProgressState extends State<SleekProgress> {
         infoProperties: InfoProperties(topLabelText: "Progress...", topLabelStyle: const TextStyle(color: textPrimaryColor)),
         customWidths: CustomSliderWidths(progressBarWidth: 15, trackWidth: 15),
         startAngle: 50,
+        angleRange: 100,
       ),
       initialValue: 50,
       onChange: ((double value){
