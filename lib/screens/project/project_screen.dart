@@ -43,7 +43,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 SizedBox(height: Sizes.intense.screenVertical(context) * 5,),
                 Row(
                   children: [
-                    
+
                   ],
                 ),
               ],
