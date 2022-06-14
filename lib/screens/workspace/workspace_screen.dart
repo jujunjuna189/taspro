@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/button/custome_icon_button.dart';
 import 'package:taspro/widgets/card/project_card.dart';
@@ -33,11 +32,15 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const CustomeIconButton(),
+              CustomeIconButton(onTap: ((){
+                Navigator.of(context).pushNamed("/form_project");
+              }),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const CustomeIconButton(icon: Icons.group_outlined, text: "Member",),
+                  CustomeIconButton(icon: Icons.group_outlined, text: "Member", onTap: ((){
+                    Navigator.of(context).pushNamed("/member");
+                  }),),
                   SizedBox(width: Sizes.intense.screenHorizontal(context) * 3,),
                   const CustomeIconButton(icon: Icons.keyboard_control_rounded,),
                 ],

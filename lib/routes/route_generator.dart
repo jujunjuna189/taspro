@@ -4,6 +4,8 @@ import 'package:taspro/screens/auth/login_screen.dart';
 import 'package:taspro/screens/auth/register_screen.dart';
 import 'package:taspro/screens/home_screen.dart';
 import 'package:taspro/screens/intro/intro_screen.dart';
+import 'package:taspro/screens/member/member_screen.dart';
+import 'package:taspro/screens/project/form_project.dart';
 import 'package:taspro/screens/project/project_screen.dart';
 import 'package:taspro/screens/splash/splash_screen.dart';
 
@@ -27,6 +29,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case '/project':
         return MaterialPageRoute(builder: (_) => const ProjectScreen());
+      case '/form_project':
+        return MaterialPageRoute(builder: (_) => const FormProject());
+      case '/member':
+        return MaterialPageRoute(builder: (_) => const MemberScreen());
       default:
       // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();
