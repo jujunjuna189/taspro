@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taspro/repository/auth_repo.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/button/previouse_back_button.dart';
 import 'package:taspro/widgets/button/submit_button.dart';
@@ -17,6 +18,26 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _register() async {
+    Map<String, dynamic> dataBatch = {
+      'name': _nameController.text.toString(),
+      'email': _emailController.text.trim().toString(),
+      'password': _passwordController.text.trim().toString(),
+    };
+
+    await AuthRepo.instance.authRegister(dataBatch).then((value){
+      if(value){
+        Navigator.of(context).pushNamed('/home');
+      }else{
+        print('Gagal register');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,23 +68,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(height: Sizes.intense.screenVertical(context) * 5,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: Sizes.intense.screenHorizontal(context) * 10),
-                    child: const FieldName(),
+                    child: FieldName(controller: _nameController,),
                   ),
                   SizedBox(height: Sizes.intense.screenVertical(context) * 2,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: Sizes.intense.screenHorizontal(context) * 10),
-                    child: const FieldEmail(),
+                    child: FieldEmail(controller: _emailController,),
                   ),
                   SizedBox(height: Sizes.intense.screenVertical(context) * 2,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: Sizes.intense.screenHorizontal(context) * 10),
-                    child: const FieldPassword(),
+                    child: FieldPassword(controller: _passwordController,),
                   ),
                   SizedBox(height: Sizes.intense.screenVertical(context) * 6,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: Sizes.intense.screenHorizontal(context) * 12),
-                    child: const SubmitButton(
+                    child: SubmitButton(
                       text: "DAFTAR",
+                      onPressed: ((){
+                        _register();
+                      }),
                     ),
                   ),
                   SizedBox(height: Sizes.intense.screenVertical(context) * 5,),

@@ -3,7 +3,10 @@ import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 
 class FieldPassword extends StatelessWidget {
-  const FieldPassword({Key? key}) : super(key: key);
+  final TextEditingController? controller;
+  const FieldPassword({Key? key,
+    this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class FieldPassword extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        controller: controller,
         keyboardType: TextInputType.visiblePassword,
         obscureText: true,
         enableSuggestions: false,

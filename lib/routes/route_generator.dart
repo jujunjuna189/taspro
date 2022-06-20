@@ -12,10 +12,10 @@ import 'package:taspro/screens/splash/splash_screen.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
-    // final args = settings.arguments;
+    final args = settings.arguments;
 
     switch (settings.name) {
-      case '/':
+      case '/intro':
         return MaterialPageRoute(builder: (_) => const IntroScreen());
       case '/splash':
         return MaterialPageRoute(builder: (_) => const SplashScreen());
@@ -28,11 +28,25 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case '/project':
-        return MaterialPageRoute(builder: (_) => const ProjectScreen());
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (_) => ProjectScreen(
+              data: args,
+            ),
+          );
+        }
+        return _errorRoute();
       case '/form_project':
         return MaterialPageRoute(builder: (_) => const FormProject());
       case '/member':
-        return MaterialPageRoute(builder: (_) => const MemberScreen());
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (_) => MemberScreen(
+              data: args,
+            ),
+          );
+        }
+        return _errorRoute();
       default:
       // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();

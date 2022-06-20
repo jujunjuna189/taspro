@@ -3,7 +3,10 @@ import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 
 class FieldEmail extends StatelessWidget {
-  const FieldEmail({Key? key}) : super(key: key);
+  final TextEditingController? controller;
+  const FieldEmail({Key? key,
+    this.controller,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class FieldEmail extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: TextField(
+        controller: controller,
         keyboardType: TextInputType.emailAddress,
         style: TextStyle(fontSize: Sizes.intense.screenHorizontal(context) * 4.5, fontWeight: FontWeight.bold),
         decoration: InputDecoration(

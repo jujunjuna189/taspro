@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taspro/model/project_model.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/card/project_card_small.dart';
@@ -9,7 +10,10 @@ import 'package:taspro/widgets/text/small_text.dart';
 import 'package:taspro/widgets/text_field/field_search.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  final List<ProjectModel> listProject;
+  const DashboardScreen({Key? key,
+    required this.listProject,
+  }) : super(key: key);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -55,8 +59,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              MediumText(text: "Baru Saja"),
-              SmallText(text: "Lainnya"),
+              MediumText(text: "Tugas Utama"),
             ],
           ),
           SizedBox(height: Sizes.intense.screenVertical(context) * 3,),
@@ -65,12 +68,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
-              children: const [
-                ProjectCardSmall(),
-                ProjectCardSmall(),
-                ProjectCardSmall(),
-                ProjectCardSmall(),
-              ],
+              children: widget.listProject.map((value) {
+                return ProjectCardSmall(text: value.title,);
+              }).toList(),
             ),
           ),
           SizedBox(height: Sizes.intense.screenVertical(context) * 5,),

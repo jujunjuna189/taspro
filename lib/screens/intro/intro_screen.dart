@@ -56,7 +56,7 @@ class _IntroScreenState extends State<IntroScreen> {
                     )
                   : GestureDetector(
                     onTap: ((){
-                      Navigator.of(context).pushNamed("/splash");
+                      Navigator.of(context).pushNamed("/auth");
                     }),
                     child: const SmallText(text: "Selesai"),
                   )

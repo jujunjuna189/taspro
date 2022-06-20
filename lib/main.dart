@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: '/splash',
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:taspro/repository/auth_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/text/big_text.dart';
@@ -14,11 +15,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  void checkAuth() async {
+    await AuthRepo.instance.getSession("user").then((value){
+        Timer(const Duration(seconds: 2), (){
+          if(value == null) {
+            Navigator.of(context).pushNamed('/intro');
+          }else{
+            Navigator.of(context).pushNamed('/home');
+          }
+        });
+    });
+  }
+
+  @override
   void initState(){
     super.initState();
-    Timer(const Duration(seconds: 2), (){
-      Navigator.of(context).pushNamed("/auth");
-    });
+    checkAuth();
   }
 
   @override

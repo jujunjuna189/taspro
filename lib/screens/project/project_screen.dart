@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
@@ -11,13 +12,33 @@ import 'package:taspro/widgets/text/normal_text.dart';
 import 'package:taspro/widgets/text/small_text.dart';
 
 class ProjectScreen extends StatefulWidget {
-  const ProjectScreen({Key? key}) : super(key: key);
+  final String data;
+  const ProjectScreen({Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   State<ProjectScreen> createState() => _ProjectScreenState();
 }
 
 class _ProjectScreenState extends State<ProjectScreen> {
+  int _projectId = 0;
+
+  void getTask() async {
+
+  }
+
+  void setFirstData() {
+    Map<String, dynamic> dataDynamic = jsonDecode(widget.data) as Map<String, dynamic>;
+    _projectId = dataDynamic['project_id'];
+    getTask();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

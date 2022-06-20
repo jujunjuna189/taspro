@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:taspro/model/member_model.dart';
+import 'package:taspro/repository/member_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/button/previouse_back_button.dart';
@@ -6,13 +9,36 @@ import 'package:taspro/widgets/card/task_card_small.dart';
 import 'package:taspro/widgets/text/normal_text.dart';
 
 class MemberScreen extends StatefulWidget {
-  const MemberScreen({Key? key}) : super(key: key);
+  final String data;
+  const MemberScreen({Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   State<MemberScreen> createState() => _MemberScreenState();
 }
 
 class _MemberScreenState extends State<MemberScreen> {
+  int _workspaceId = 0;
+  List<MemberModel> _listMember = [];
+
+  void getMember() async {
+    _listMember = await MemberRepo.instance.getData({'workspace_id': _workspaceId});
+    setState((){});
+  }
+
+  void setFirstData() {
+    Map<String, dynamic> dataDynamic = jsonDecode(widget.data) as Map<String, dynamic>;
+    _workspaceId = dataDynamic['workspace_id'];
+    getMember();
+  }
+
+  @override
+  void initState() {
+    setFirstData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,11 +65,9 @@ class _MemberScreenState extends State<MemberScreen> {
                 ),
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
-                children: const <Widget>[
-                  TaskCardSmall(),
-                  TaskCardSmall(),
-                  TaskCardSmall(),
-                ],
+                children: _listMember.map((value) {
+                  return TaskCardSmall(name: value.name, role: value.role,);
+                }).toList(),
               ),
             ],
           );
@@ -51,7 +75,7 @@ class _MemberScreenState extends State<MemberScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: ((){
-          print('Invite');
+          print(_workspaceId);
         }),
         backgroundColor: backgroundBlackColor,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),

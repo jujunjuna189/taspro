@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:taspro/model/project_model.dart';
+import 'package:taspro/model/workspace_model.dart';
+import 'package:taspro/repository/auth_repo.dart';
+import 'package:taspro/repository/project_repo.dart';
+import 'package:taspro/repository/workspace_repo.dart';
 import 'package:taspro/screens/dashboard/dashboard_screen.dart';
 import 'package:taspro/screens/profile/profile_screen.dart';
 import 'package:taspro/screens/setting/setting_screen.dart';
@@ -15,15 +20,66 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currenTab = 0;
-  final List<Widget> screen = [
-    const DashboardScreen(),
-    const WorkspaceScreen(),
-    const SettingScreen(),
-    const ProfileScreen(),
-  ];
 
   final PageStorageBucket bucket = PageStorageBucket();
-  Widget currentScreen = const DashboardScreen();
+  Widget currentScreen = const DashboardScreen(listProject: [],);
+
+  //Dashboard data set
+  List<WorkspaceModel> _workspaceDashboard = [];
+  List<ProjectModel> _listProjectDashboard = [];
+  //============================================
+
+  //Dashboard data function
+  void setSessionWorkspace() async {
+    Map<String, dynamic> workspaceData = {
+      'id': _workspaceDashboard[0].id,
+      'title': _workspaceDashboard[0].title,
+    };
+
+    await AuthRepo.instance.setSession("workspace", workspaceData);
+  }
+
+  void setFirstData() async {
+    await AuthRepo.instance.getSession("workspace").then((value){
+      if(value == null){
+        setSessionWorkspace();
+      }
+    });
+    currentScreen = DashboardScreen(listProject: _listProjectDashboard);
+  }
+
+  Future<void> getDataDashboard() async {
+    final user = await AuthRepo.instance.getSession("user");
+    _workspaceDashboard = await WorkspaceRepo.instance.getData({'user_id': user['id']});
+    _listProjectDashboard = await ProjectRepo.instance.getData({'user_id': user['id']});
+    setFirstData();
+    setState((){});
+  }
+  //============================================
+
+  //Workspace data set
+  Map<String, dynamic> _workspaceWorkspace = {};
+  List<ProjectModel> _listProjectWorkspace = [];
+  //============================================
+
+  Future<void> getDataWorkspace() async {
+    final user = await AuthRepo.instance.getSession("user");
+    _workspaceWorkspace = await AuthRepo.instance.getSession("workspace");
+    _listProjectWorkspace = await ProjectRepo.instance.getData({'user_id': user['id'], 'workspace_id': _workspaceWorkspace['id']});
+    setState((){});
+  }
+
+  void combine() async {
+    await getDataDashboard().then((value){
+      getDataWorkspace();
+    });
+  }
+  
+  @override
+  void initState(){
+    combine();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     minWidth: 40,
                     onPressed: ((){
                       setState((){
-                        currentScreen = const DashboardScreen();
+                        currentScreen = DashboardScreen(listProject: _listProjectDashboard,);
                         currenTab = 0;
                       });
                     }),
@@ -84,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     minWidth: 40,
                     onPressed: ((){
                       setState((){
-                        currentScreen = const WorkspaceScreen();
+                        currentScreen = WorkspaceScreen(workspace: _workspaceWorkspace, listProject: _listProjectWorkspace,);
                         currenTab = 1;
                       });
                     }),

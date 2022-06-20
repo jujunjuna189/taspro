@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.taspro">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="taspro"
         android:name="${applicationName}"

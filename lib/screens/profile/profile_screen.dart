@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taspro/repository/auth_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/text/normal_text.dart';
@@ -12,6 +13,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  void _logout() async {
+    await AuthRepo.instance.authLogout().then((value) {
+      Navigator.of(context).pushNamed("/auth");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,13 +82,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: Sizes.intense.screenHorizontal(context) * 3, horizontal: Sizes.intense.screenHorizontal(context) * 10),
-                    decoration: BoxDecoration(
-                      color: backgroundLightPrimaryColor,
-                      borderRadius: BorderRadius.circular(50)
+                  GestureDetector(
+                    onTap: ((){
+                      _logout();
+                    }),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: Sizes.intense.screenHorizontal(context) * 3, horizontal: Sizes.intense.screenHorizontal(context) * 10),
+                      decoration: BoxDecoration(
+                        color: backgroundLightPrimaryColor,
+                        borderRadius: BorderRadius.circular(50)
+                      ),
+                      child: const NormalText(text: "Keluar", color: textPrimaryColor),
                     ),
-                    child: const NormalText(text: "Keluar", color: textPrimaryColor),
                   ),
                   SizedBox(width: Sizes.intense.screenHorizontal(context) * 10,),
                   const Icon(Icons.edit, color: textSecondaryColor,),
