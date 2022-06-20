@@ -58,7 +58,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
             ],
           ),
           SizedBox(height: Sizes.intense.screenVertical(context) * 5,),
-          const MediumText(text: "Projek"),
+          const MediumText(text: "Tugas Utama"),
           GridView.count(
             physics: const ScrollPhysics(),
             crossAxisCount: 2,
