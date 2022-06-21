@@ -3,7 +3,10 @@ import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 import 'package:taspro/utils/colors.dart';
 
 class SleekProgress extends StatefulWidget {
-  const SleekProgress({Key? key}) : super(key: key);
+  final double value;
+  const SleekProgress({Key? key,
+    this.value = 0,
+  }) : super(key: key);
 
   @override
   State<SleekProgress> createState() => _SleekProgressState();
@@ -24,7 +27,7 @@ class _SleekProgressState extends State<SleekProgress> {
         startAngle: 50,
         angleRange: 100,
       ),
-      initialValue: 50,
+      initialValue: widget.value,
     );
   }
 }

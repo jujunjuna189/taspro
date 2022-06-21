@@ -5,7 +5,7 @@ import 'package:taspro/repository/member_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/button/previouse_back_button.dart';
-import 'package:taspro/widgets/card/task_card_small.dart';
+import 'package:taspro/widgets/card/member_card.dart';
 import 'package:taspro/widgets/text/normal_text.dart';
 
 class MemberScreen extends StatefulWidget {
@@ -66,7 +66,7 @@ class _MemberScreenState extends State<MemberScreen> {
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 children: _listMember.map((value) {
-                  return TaskCardSmall(name: value.name, role: value.role,);
+                  return MemberCard(name: value.name, role: value.role,);
                 }).toList(),
               ),
             ],

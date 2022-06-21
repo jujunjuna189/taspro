@@ -18,11 +18,13 @@ class ProjectRepo {
       if(response.statusCode == 200){
         var jsonResponse = jsonDecode(response.body);
         Iterable iterable = jsonResponse['data'];
-        List<ProjectModel> listWorkspace = iterable.map((e) => ProjectModel.fromJson(e)).toList();
-        return listWorkspace;
+        List<ProjectModel> listProject = iterable.isNotEmpty ? iterable.map((e) => ProjectModel.fromJson(e)).toList() : [];
+        return listProject;
       }
     }catch(e){
-      print(e.toString());
+      print("$e Project repo");
     }
+
+    return [];
   }
 }

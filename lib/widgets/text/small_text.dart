@@ -18,6 +18,7 @@ class SmallText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
+      softWrap: true,
       style: TextStyle(
         fontSize: Sizes.intense.screenHorizontal(context) * 4,
         fontWeight: fontWeight ?? FontWeight.normal,

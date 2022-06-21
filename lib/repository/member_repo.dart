@@ -18,11 +18,11 @@ class MemberRepo {
       if(response.statusCode == 200){
         var jsonResponse = jsonDecode(response.body);
         Iterable iterable = jsonResponse['data'];
-        List<MemberModel> listMember = iterable.map((e) => MemberModel.fromJson(e)).toList();
+        List<MemberModel> listMember = iterable.isNotEmpty ? iterable.map((e) => MemberModel.fromJson(e)).toList() : [];
         return listMember;
       }
     }catch(e){
-      print(e.toString());
+      print("$e Member repo");
     }
   }
 }

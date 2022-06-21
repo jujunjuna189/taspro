@@ -1,10 +1,10 @@
 class MemberModel {
   final int id;
   final String name;
-  final int userId;
-  final int workspaceId;
+  final String userId;
+  final String workspaceId;
   final String role;
-  final int access;
+  final String access;
 
   const MemberModel({
     required this.id,
@@ -19,10 +19,10 @@ class MemberModel {
     return MemberModel(
       id: json['id'],
       name: json['name'],
-      userId: json['user_id'],
-      workspaceId: json['workspace_id'],
+      userId: json['user_id'].toString(),
+      workspaceId: json['workspace_id'].toString(),
       role: json['role'],
-      access: json['access'],
+      access: json['access'].toString(),
     );
   }
 }

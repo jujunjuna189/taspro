@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:taspro/model/task_model.dart';
+import 'package:taspro/repository/task_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/button/custome_icon_button.dart';
@@ -23,9 +25,33 @@ class ProjectScreen extends StatefulWidget {
 
 class _ProjectScreenState extends State<ProjectScreen> {
   int _projectId = 0;
+  List<TaskModel> _listTask = [];
+  double _valProgress = 0;
+
+  void countProgress() {
+    double listTaskCompleted = 0;
+
+    for(var i = 0; i < _listTask.length; i++){
+      if(_listTask[i].completed == 1){
+        listTaskCompleted =  listTaskCompleted + 1;
+      }
+    }
+
+    _valProgress = (listTaskCompleted / _listTask.length ) * 100;
+  }
+
+  void setTaskCompleted(int taskId, bool completed) {
+    int setCompl = completed ? 1 : 0;
+    int index = _listTask.indexWhere((value) => value.id == taskId);
+    _listTask[index] = TaskModel(id: _listTask[index].id, projectId: _listTask[index].projectId, title: _listTask[index].title, completed: setCompl.toString(), deleted: "0");
+    countProgress();
+    setState((){});
+  }
 
   void getTask() async {
-
+    _listTask = await TaskRepo.instance.getData({'project_id': _projectId});
+    countProgress();
+    setState((){});
   }
 
   void setFirstData() {
@@ -36,6 +62,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
   @override
   void initState() {
+    setFirstData();
     super.initState();
   }
 
@@ -63,7 +90,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
             ),
             child: Column(
               children: [
-                const SleekProgress(),
+                SleekProgress(value: _valProgress,),
                 SizedBox(height: Sizes.intense.screenVertical(context) * 5,),
                 const MediumText(text: "Judul Tugas Utama"),
                 SizedBox(height: Sizes.intense.screenVertical(context) * 3,),
@@ -105,11 +132,16 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 ListView(
                   shrinkWrap: true,
                   physics: const ScrollPhysics(),
-                  children: const <Widget>[
-                    TaskCardSmall(),
-                    TaskCardSmall(),
-                    TaskCardSmall(),
-                  ],
+                  children: _listTask.map((value) {
+                    return TaskCardSmall(
+                      title: value.title,
+                      completed: int.parse(value.completed!),
+                      deleted: int.parse(value.deleted!),
+                      onChange: ((completed){
+                        setTaskCompleted(value.id, completed);
+                      }),
+                    );
+                  }).toList(),
                 ),
               ],
             ),

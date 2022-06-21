@@ -1,6 +1,6 @@
 class ProjectModel {
   final int id;
-  final int? workspaceId;
+  final String? workspaceId;
   final String title;
   final String? description;
   final String? deadline;
@@ -18,7 +18,7 @@ class ProjectModel {
   factory ProjectModel.fromJson(Map<String, dynamic> json) {
     return ProjectModel(
       id: json['id'],
-      workspaceId: json['workspace_id'],
+      workspaceId: json['workspace_id'].toString(),
       title: json['title'],
       description: json['description'],
       deadline: json['deadline'],

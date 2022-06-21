@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:taspro/model/user_model.dart';
 import 'package:taspro/utils/api_const.dart';
 
 class AuthRepo {
@@ -28,7 +27,7 @@ class AuthRepo {
         return true;
       }
     }catch(e){
-      print(e.toString());
+      print("$e Auth repo");
     }
 
     return false;
@@ -52,7 +51,7 @@ class AuthRepo {
         return true;
       }
     }catch(e){
-      print(e.toString());
+      print("$e Auth repo");
     }
 
     return false;

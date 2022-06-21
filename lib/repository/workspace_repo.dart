@@ -18,11 +18,11 @@ class WorkspaceRepo {
       if(response.statusCode == 200){
         var jsonResponse = jsonDecode(response.body);
         Iterable iterable = jsonResponse['data'];
-        List<WorkspaceModel> listWorkspace = iterable.map((e) => WorkspaceModel.fromJson(e)).toList();
+        List<WorkspaceModel> listWorkspace = iterable.isNotEmpty ? iterable.map((e) => WorkspaceModel.fromJson(e)).toList() : [];
         return listWorkspace;
       }
     }catch(e){
-      print(e.toString());
+      print("$e Workspace repo");
     }
   }
 }

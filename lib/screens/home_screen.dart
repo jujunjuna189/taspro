@@ -49,11 +49,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getDataDashboard() async {
-    final user = await AuthRepo.instance.getSession("user");
-    _workspaceDashboard = await WorkspaceRepo.instance.getData({'user_id': user['id']});
-    _listProjectDashboard = await ProjectRepo.instance.getData({'user_id': user['id']});
-    setFirstData();
-    setState((){});
+    try{
+      final user = await AuthRepo.instance.getSession("user");
+      _workspaceDashboard = await WorkspaceRepo.instance.getData({'user_id': user['id']});
+      _listProjectDashboard = await ProjectRepo.instance.getData({'user_id': user['id']});
+      setFirstData();
+      setState((){});
+    }catch(e){
+      print("$e Dashboard getdata");
+    }
   }
   //============================================
 
@@ -63,10 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
   //============================================
 
   Future<void> getDataWorkspace() async {
-    final user = await AuthRepo.instance.getSession("user");
-    _workspaceWorkspace = await AuthRepo.instance.getSession("workspace");
-    _listProjectWorkspace = await ProjectRepo.instance.getData({'user_id': user['id'], 'workspace_id': _workspaceWorkspace['id']});
-    setState((){});
+    try{
+      final user = await AuthRepo.instance.getSession("user");
+      _workspaceWorkspace = await AuthRepo.instance.getSession("workspace");
+      _listProjectWorkspace = await ProjectRepo.instance.getData({'user_id': user['id'], 'workspace_id': _workspaceWorkspace['id']});
+      setState((){});
+    }catch(e){
+      print("$e Workspace getdata");
+    }
   }
 
   void combine() async {
