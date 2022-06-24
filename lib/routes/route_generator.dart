@@ -37,7 +37,14 @@ class RouteGenerator {
         }
         return _errorRoute();
       case '/form_project':
-        return MaterialPageRoute(builder: (_) => const FormProject());
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (_) => FormProject(
+              data: args,
+            ),
+          );
+        }
+        return _errorRoute();
       case '/member':
         if (args is String) {
           return MaterialPageRoute(

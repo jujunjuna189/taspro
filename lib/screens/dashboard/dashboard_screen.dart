@@ -84,10 +84,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ListView(
             shrinkWrap: true,
             physics: const ScrollPhysics(),
-            children: const <Widget>[
-              TaskCardSmall(),
-              TaskCardSmall(),
-              TaskCardSmall(),
+            children: <Widget>[
+              TaskCardSmall(onChange: ((e){}),),
+              TaskCardSmall(onChange: ((e){}),),
+              TaskCardSmall(onChange: ((e){}),),
             ],
           ),
         ],

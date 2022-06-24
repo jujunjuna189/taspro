@@ -14,7 +14,7 @@ class PreviouseBackButton extends StatelessWidget {
         onTap!();
       }),
       child: Padding(
-        padding: EdgeInsets.all(Sizes.intense.screenHorizontal(context) * 3),
+        padding: EdgeInsets.all(Sizes.intense.screenHorizontal(context) * 5),
         child: const Icon(Icons.arrow_back_ios),
       ),
     );

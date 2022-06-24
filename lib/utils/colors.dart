@@ -3,8 +3,9 @@ import 'dart:ui';
 //Background
 const backgroundPrimaryColor = Color(0xFF4D8DCC);
 const backgroundLightPrimaryColor = Color(0xFFE3ECF5);
+const backgroundSuperLightPrimaryColor = Color(0xFFF3F9FF);
 const backgroundSuccessColor = Color(0xFFE5FFE5);
-const backgroundLightSucccessColor = Color(0xFFE5F5E3);
+const backgroundLightSuccessColor = Color(0xFFE5F5E3);
 const backgroundWarningColor = Color(0xFFFFFEE5);
 const backgroundLightWarningColor = Color(0xFFF5F4E3);
 const backgroundDangerColor = Color(0xFFFFE5E5);

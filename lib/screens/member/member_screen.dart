@@ -19,18 +19,26 @@ class MemberScreen extends StatefulWidget {
 }
 
 class _MemberScreenState extends State<MemberScreen> {
-  int _workspaceId = 0;
+  String _workspaceId = "";
   List<MemberModel> _listMember = [];
 
   void getMember() async {
-    _listMember = await MemberRepo.instance.getData({'workspace_id': _workspaceId});
+    try{
+      _listMember = await MemberRepo.instance.getData({'workspace_id': _workspaceId});
+    }catch(e){
+      print(e.toString());
+    }
     setState((){});
   }
 
   void setFirstData() {
-    Map<String, dynamic> dataDynamic = jsonDecode(widget.data) as Map<String, dynamic>;
-    _workspaceId = dataDynamic['workspace_id'];
-    getMember();
+    try{
+      Map<String, dynamic> dataDynamic = jsonDecode(widget.data) as Map<String, dynamic>;
+      _workspaceId = dataDynamic['workspace_id'].toString();
+      getMember();
+    }catch(e){
+      print(e.toString());
+    }
   }
 
   @override

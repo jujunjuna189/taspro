@@ -8,6 +8,7 @@ class ProjectRepo {
   static final ProjectRepo instance = ProjectRepo._privateConstructor();
 
   final _uriGet = ApiConst.getProject;
+  final _uriCreate = ApiConst.createProject;
 
   Future getData(Map<String, dynamic> data) async {
     try{
@@ -26,5 +27,26 @@ class ProjectRepo {
     }
 
     return [];
+  }
+  
+  Future createData(Map<String, dynamic> data) async {
+    try{
+      Map<String, dynamic> dataBatch = {
+        'project_id': data['project_id'],
+        'title': data['title'],
+      };
+
+      final response = await http.post(Uri.parse(_uriCreate), body: dataBatch);
+      if(response.statusCode == 200){
+        var jsonResponse = jsonDecode(response.body);
+        return jsonResponse['data'];
+      }else{
+        print("Failed");
+      }
+    }catch(e){
+      print("$e Project repo");
+    }
+
+    return null;
   }
 }

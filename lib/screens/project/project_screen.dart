@@ -8,6 +8,7 @@ import 'package:taspro/widgets/button/custome_icon_button.dart';
 import 'package:taspro/widgets/button/previouse_back_button.dart';
 import 'package:taspro/widgets/card/task_card_small.dart';
 import 'package:taspro/widgets/image_wrap/image_circle_small.dart';
+import 'package:taspro/widgets/modal/modal_add_task.dart';
 import 'package:taspro/widgets/sleek/sleek_progress.dart';
 import 'package:taspro/widgets/text/medium_text.dart';
 import 'package:taspro/widgets/text/normal_text.dart';
@@ -32,12 +33,12 @@ class _ProjectScreenState extends State<ProjectScreen> {
     double listTaskCompleted = 0;
 
     for(var i = 0; i < _listTask.length; i++){
-      if(_listTask[i].completed == 1){
+      if(_listTask[i].completed == "1"){
         listTaskCompleted =  listTaskCompleted + 1;
       }
     }
 
-    _valProgress = (listTaskCompleted / _listTask.length ) * 100;
+    _valProgress = (listTaskCompleted / _listTask.length > 0 ? _listTask.length : 0 ) * 100;
   }
 
   void setTaskCompleted(int taskId, bool completed) {
@@ -125,7 +126,9 @@ class _ProjectScreenState extends State<ProjectScreen> {
                         ],
                       ),
                     ),
-                    const CustomeIconButton(icon: Icons.add),
+                    CustomeIconButton(icon: Icons.add, onTap: ((){
+                      ModalAddTask.intense.modalShow(context, jsonEncode({'project_id': _projectId}));
+                    }),),
                   ],
                 ),
                 SizedBox(height: Sizes.intense.screenVertical(context) * 5,),

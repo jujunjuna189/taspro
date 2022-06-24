@@ -21,6 +21,14 @@ class WorkspaceScreen extends StatefulWidget {
 
 class _WorkspaceScreenState extends State<WorkspaceScreen> {
 
+  void _navigatorFormProject() async {
+    final result = await Navigator.of(context).pushNamed("/form_project", arguments: jsonEncode({"workspace_id": widget.workspace['id']}));
+    Iterable iterable = jsonDecode(result.toString()) ;
+    List<ProjectModel> listProject = iterable.isNotEmpty ? iterable.map((e) => ProjectModel.fromJson(e)).toList() : [];
+    widget.listProject.addAll(listProject);
+    setState((){});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +49,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CustomeIconButton(onTap: ((){
-                Navigator.of(context).pushNamed("/form_project");
+                _navigatorFormProject();
               }),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

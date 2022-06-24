@@ -60,7 +60,7 @@ class ModalAddFloating{
                                 Container(
                                   padding: const EdgeInsets.all(8),
                                   decoration: BoxDecoration(
-                                    color: backgroundLightSucccessColor,
+                                    color: backgroundLightSuccessColor,
                                     borderRadius: BorderRadius.circular(24),
                                   ),
                                   child: const Icon(Icons.task),

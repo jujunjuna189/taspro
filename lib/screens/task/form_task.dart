@@ -1,38 +1,37 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:taspro/repository/project_repo.dart';
+import 'package:taspro/repository/task_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/button/previouse_back_button.dart';
 import 'package:taspro/widgets/text/normal_text.dart';
 import 'package:taspro/widgets/text_field/field_title.dart';
 
-class FormProject extends StatefulWidget {
+class FormTask extends StatefulWidget {
   final String data;
-  const FormProject({Key? key,
+  const FormTask({Key? key,
     required this.data,
   }) : super(key: key);
 
   @override
-  State<FormProject> createState() => _FormProjectState();
+  State<FormTask> createState() => _FormTaskState();
 }
 
-class _FormProjectState extends State<FormProject> {
+class _FormTaskState extends State<FormTask> {
   final TextEditingController _titleController = TextEditingController();
   final List<Map<String, dynamic>> _draft = [];
-  String _workspaceId = "";
+  String _projectId = "";
 
   void onSaved() async {
     Map<String, dynamic> dataBatch = {
-      'workspace_id': _workspaceId,
+      'project_id': _projectId,
       'title': _titleController.text.toString(),
-      'description': "",
-      'deadline': "",
-      'visibility': "Private",
+      'completed': "0",
+      'deleted': "0"
     };
 
-    final response = await ProjectRepo.instance.createData(dataBatch);
+    final response = await TaskRepo.instance.createData(dataBatch);
 
     if(response != null){
       _draft.add(response);
@@ -44,7 +43,8 @@ class _FormProjectState extends State<FormProject> {
   @override
   void initState() {
     Map<String, dynamic> dataDynamic = jsonDecode(widget.data) as Map<String, dynamic>;
-    _workspaceId = dataDynamic['workspace_id'].toString();
+    _projectId = dataDynamic['project_id'].toString();
+    print(_projectId);
     super.initState();
   }
 
@@ -59,17 +59,17 @@ class _FormProjectState extends State<FormProject> {
                 children: <Widget>[
                   PreviouseBackButton(
                     onTap: ((){
-                      Navigator.of(context).pop(jsonEncode(_draft));
+                      Navigator.of(context).pop();
                     }),
                   ),
-                  const NormalText(text: "Buat Projek Baru"),
+                  const NormalText(text: "Buat Tugas Baru"),
                 ],
               ),
               SizedBox(height: Sizes.intense.screenVertical(context) * 3,),
               Padding(
                 padding: EdgeInsets.only(
-                    left: Sizes.intense.screenHorizontal(context) * 5,
-                    right: Sizes.intense.screenHorizontal(context) * 5,
+                  left: Sizes.intense.screenHorizontal(context) * 5,
+                  right: Sizes.intense.screenHorizontal(context) * 5,
                 ),
                 child: Column(
                   children: [
@@ -79,10 +79,9 @@ class _FormProjectState extends State<FormProject> {
               ),
             ],
           );
-        },
+        }
       ),
       floatingActionButton: Visibility(
-        visible: !checkVisibleWithScreen(),
         child: FloatingActionButton.extended(
           onPressed: ((){
             onSaved();
@@ -95,10 +94,5 @@ class _FormProjectState extends State<FormProject> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  }
-
-  bool checkVisibleWithScreen(){
-    bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
-    return keyboardIsOpen;
   }
 }

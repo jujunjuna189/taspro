@@ -5,7 +5,7 @@ import 'package:taspro/utils/colors.dart';
 class SleekProgress extends StatefulWidget {
   final double value;
   const SleekProgress({Key? key,
-    this.value = 0,
+    this.value = 0.0,
   }) : super(key: key);
 
   @override
