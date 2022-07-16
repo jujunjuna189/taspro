@@ -27,6 +27,8 @@ class _SleekProgressState extends State<SleekProgress> {
         startAngle: 50,
         angleRange: 100,
       ),
+      min: 0,
+      max: 100,
       initialValue: widget.value,
     );
   }

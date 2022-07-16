@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taspro/repository/auth_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
+import 'package:taspro/widgets/text/medium_text.dart';
 import 'package:taspro/widgets/text/normal_text.dart';
 import 'package:taspro/widgets/text/small_text.dart';
 
@@ -13,11 +14,23 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Map<String, dynamic> _user = {};
 
   void _logout() async {
     await AuthRepo.instance.authLogout().then((value) {
       Navigator.of(context).pushNamed("/auth");
     });
+  }
+
+  void getFirstData() async {
+    _user = await AuthRepo.instance.getSession("user");
+    setState((){});
+  }
+
+  @override
+  void initState() {
+    getFirstData();
+    super.initState();
   }
 
   @override
@@ -66,6 +79,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: backgroundLightPrimaryColor,
                           borderRadius: BorderRadius.circular(100),
                         ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            MediumText(text: _user['name'].toString().isNotEmpty ? _user['name'].toString().substring(0, 2) : '',),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -76,8 +95,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
               SizedBox(height: Sizes.intense.screenVertical(context) * 3,),
-              const NormalText(text: "Stevan Bambang", fontWeight: FontWeight.bold,),
-              const SmallText(text: "stevan@gmail.com"),
+              NormalText(text: _user['name'] ?? '', fontWeight: FontWeight.bold,),
+              SmallText(text: _user['email'] ?? ''),
               SizedBox(height: Sizes.intense.screenVertical(context) * 5,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

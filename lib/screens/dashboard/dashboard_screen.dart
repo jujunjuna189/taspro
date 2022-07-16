@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taspro/model/project_model.dart';
+import 'package:taspro/model/task_model.dart';
+import 'package:taspro/repository/auth_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/card/project_card_small.dart';
@@ -11,8 +13,10 @@ import 'package:taspro/widgets/text_field/field_search.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<ProjectModel> listProject;
+  final List<TaskModel> listTask;
   const DashboardScreen({Key? key,
     required this.listProject,
+    required this.listTask,
   }) : super(key: key);
 
   @override
@@ -20,6 +24,19 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  Map<String, dynamic> _user = {};
+
+  void getFirstData() async {
+    _user = await AuthRepo.instance.getSession("user");
+    setState((){});
+  }
+
+  @override
+  void initState() {
+    getFirstData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +62,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       color: backgroundLightPrimaryColor,
                       borderRadius: BorderRadius.circular(50),
                     ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SmallText(text: _user['name'].toString().isNotEmpty ? _user['name'].toString().substring(0, 2) : 'Us', fontWeight: FontWeight.bold,),
+                      ],
+                    ),
                   ),
                   SizedBox(width: Sizes.intense.screenHorizontal(context) * 3,),
-                  const NormalText(text: "Stevan Bambang", fontWeight: FontWeight.bold,),
+                  NormalText(text: _user['name'] ?? '', fontWeight: FontWeight.bold,),
                 ],
               ),
               Icon(Icons.notifications_none_outlined, size: Sizes.intense.screenHorizontal(context) * 6,),
@@ -77,18 +100,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              MediumText(text: "Tugas"),
-              SmallText(text: "Lainnya"),
+              MediumText(text: "Tugas Saya"),
             ],
           ),
           ListView(
             shrinkWrap: true,
             physics: const ScrollPhysics(),
-            children: <Widget>[
-              TaskCardSmall(onChange: ((e){}),),
-              TaskCardSmall(onChange: ((e){}),),
-              TaskCardSmall(onChange: ((e){}),),
-            ],
+            children: widget.listTask.map((value) {
+              return TaskCardSmall(
+                id: value.id,
+                title: value.title,
+                completed: int.parse(value.completed!),
+                deleted: int.parse(value.deleted!),
+                onChange: ((value){}),
+              );
+            }).toList(),
           ),
         ],
       ),

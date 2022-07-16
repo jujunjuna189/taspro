@@ -11,7 +11,9 @@ class ApiConst {
   static const createProject = '${server}api/project/create';
   //Task
   static const getTask = '${server}api/task/data';
+  static const getTaskByWorkspace = '${server}api/task/dataByWorkspace';
   static const createTask = '${server}api/task/create';
+  static const updateTask = '${server}api/task/update';
   //Member
   static const getMember = '${server}api/member/data';
 }

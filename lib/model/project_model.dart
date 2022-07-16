@@ -5,6 +5,7 @@ class ProjectModel {
   final String? description;
   final String? deadline;
   final String? visibility;
+  final String? totalTask;
 
   const ProjectModel({
     required this.id,
@@ -13,6 +14,7 @@ class ProjectModel {
     this.description,
     this.deadline,
     this.visibility,
+    this.totalTask,
   });
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class ProjectModel {
       description: json['description'],
       deadline: json['deadline'],
       visibility: json['visibility'],
+      totalTask: json['total_task'].toString(),
     );
   }
 }

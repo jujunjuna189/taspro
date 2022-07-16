@@ -31,10 +31,7 @@ class ProjectRepo {
   
   Future createData(Map<String, dynamic> data) async {
     try{
-      Map<String, dynamic> dataBatch = {
-        'project_id': data['project_id'],
-        'title': data['title'],
-      };
+      Map<String, dynamic> dataBatch = data;
 
       final response = await http.post(Uri.parse(_uriCreate), body: dataBatch);
       if(response.statusCode == 200){

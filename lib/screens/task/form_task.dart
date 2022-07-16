@@ -10,8 +10,10 @@ import 'package:taspro/widgets/text_field/field_title.dart';
 
 class FormTask extends StatefulWidget {
   final String data;
+  final Function? calback;
   const FormTask({Key? key,
     required this.data,
+    this.calback,
   }) : super(key: key);
 
   @override
@@ -35,6 +37,7 @@ class _FormTaskState extends State<FormTask> {
 
     if(response != null){
       _draft.add(response);
+      widget.calback!(_draft);
     }else{
       print("Gagal");
     }
@@ -59,7 +62,7 @@ class _FormTaskState extends State<FormTask> {
                 children: <Widget>[
                   PreviouseBackButton(
                     onTap: ((){
-                      Navigator.of(context).pop();
+                      Navigator.of(context).pop(jsonEncode(_draft));
                     }),
                   ),
                   const NormalText(text: "Buat Tugas Baru"),

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:taspro/repository/task_repo.dart';
 import 'package:taspro/utils/colors.dart';
 import 'package:taspro/utils/sizes.dart';
 import 'package:taspro/widgets/text/small_text.dart';
 
 class TaskCardSmall extends StatefulWidget {
+  final int? id;
   final String? title;
   final int? completed;
   final int? deleted;
   final Function? onChange;
   const TaskCardSmall({Key? key,
+    required this.id,
     this.title = '',
     this.completed = 0,
     this.deleted,
@@ -21,6 +24,29 @@ class TaskCardSmall extends StatefulWidget {
 
 class _TaskCardSmallState extends State<TaskCardSmall> {
   bool _checkValue = false;
+
+  void onChange(value) async {
+    Map<String, dynamic> dataBatch = {};
+    if(value){
+      dataBatch = {
+        'id': widget.id.toString(),
+        'completed': "1",
+      };
+    }else{
+      dataBatch = {
+        'id': widget.id.toString(),
+        'completed': "0",
+      };
+    }
+
+    final response = await TaskRepo.instance.updateData(dataBatch);
+
+    if(response != null){
+      print(response);
+    }else{
+      print("Gagal");
+    }
+  }
 
   @override
   void initState(){
@@ -51,6 +77,7 @@ class _TaskCardSmallState extends State<TaskCardSmall> {
                 borderRadius: BorderRadius.circular(5),
               ),
               onChanged: ((value){
+                onChange(value);
                 widget.onChange!(value);
                 setState((){
                   _checkValue = value!;

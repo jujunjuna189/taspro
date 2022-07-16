@@ -76,6 +76,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
                   Navigator.of(context).pushNamed("/project", arguments: jsonEncode({'project_id': value.id}));
                 }),
                 text: value.title,
+                totalTask: value.totalTask,
               );
             }).toList(),
           ),

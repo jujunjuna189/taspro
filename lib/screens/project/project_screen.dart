@@ -29,6 +29,16 @@ class _ProjectScreenState extends State<ProjectScreen> {
   List<TaskModel> _listTask = [];
   double _valProgress = 0;
 
+  void _navigationFormTask() {
+    ModalAddTask.intense.modalShow(context, data: jsonEncode({'project_id': _projectId}), calback: ((value){
+      Iterable iterable = value;
+      List<TaskModel> listProject = iterable.isNotEmpty ? iterable.map((e) => TaskModel.fromJson(e)).toList() : [];
+      _listTask.addAll(listProject);
+      countProgress();
+      setState((){});
+    }));
+  }
+
   void countProgress() {
     double listTaskCompleted = 0;
 
@@ -38,7 +48,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
       }
     }
 
-    _valProgress = (listTaskCompleted / _listTask.length > 0 ? _listTask.length : 0 ) * 100;
+    _valProgress = _listTask.isNotEmpty ? (listTaskCompleted / double.parse(_listTask.length.toString())) * 100 : 0;
   }
 
   void setTaskCompleted(int taskId, bool completed) {
@@ -50,7 +60,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   }
 
   void getTask() async {
-    _listTask = await TaskRepo.instance.getData({'project_id': _projectId});
+    _listTask = await TaskRepo.instance.getData({'project_id': _projectId}) ?? [];
     countProgress();
     setState((){});
   }
@@ -127,7 +137,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                       ),
                     ),
                     CustomeIconButton(icon: Icons.add, onTap: ((){
-                      ModalAddTask.intense.modalShow(context, jsonEncode({'project_id': _projectId}));
+                      _navigationFormTask();
                     }),),
                   ],
                 ),
@@ -137,6 +147,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   physics: const ScrollPhysics(),
                   children: _listTask.map((value) {
                     return TaskCardSmall(
+                      id: value.id,
                       title: value.title,
                       completed: int.parse(value.completed!),
                       deleted: int.parse(value.deleted!),

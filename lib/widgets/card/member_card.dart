@@ -16,7 +16,7 @@ class MemberCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: Sizes.intense.screenVertical(context) * 1.5),
       child: Container(
-        height: Sizes.intense.screenVertical(context) * 10,
+        height: Sizes.intense.screenVertical(context) * 7,
         width: Sizes.intense.screenHorizontal(context) * 50,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         decoration: BoxDecoration(

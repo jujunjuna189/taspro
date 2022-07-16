@@ -6,7 +6,7 @@ class ModalAddTask{
   ModalAddTask._privateController();
   static final intense = ModalAddTask._privateController();
 
-  void modalShow(BuildContext context, String data){
+  void modalShow(BuildContext context, {String data = "", Function? calback}) {
     showDialog(
         barrierColor: Colors.transparent,
         barrierDismissible: true,
@@ -14,7 +14,9 @@ class ModalAddTask{
         builder: (context) {
           // for detect position object
           return StatefulBuilder(builder: (context, setState){
-            return FormTask(data: data);
+            return FormTask(data: data, calback: ((value){
+              calback!(value);
+            }),);
           });
         }
     );
